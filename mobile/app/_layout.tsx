@@ -1,29 +1,19 @@
-import { useFonts } from "expo-font";
+import { AuthProvider } from "@/utils/authContext";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { PaperProvider } from "react-native-paper";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // const [loaded] = useFonts({
-  //   SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  // });
-
-  // useEffect(() => {
-  //   if (loaded) {
-  //     SplashScreen.hide();
-  //   }
-  // }, [loaded]);
-
-  // if (!loaded) {
-  //   return null;
-  // }
-
   return (
-    <Stack>
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    <PaperProvider>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="login/index" options={{ headerShown: false }} />
+        </Stack>
+      </AuthProvider>
+    </PaperProvider>
   );
 }
