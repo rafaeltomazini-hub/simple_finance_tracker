@@ -1,13 +1,19 @@
 import { AuthProvider } from "@/utils/authContext";
+import { app } from "@/utils/firebaseConfig";
 import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { PaperProvider } from "react-native-paper";
-
-SplashScreen.preventAutoHideAsync();
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useEffect } from "react";
 
 export default function RootLayout() {
+  useEffect(() => {
+    getAuth(app);
+  }, []);
+
+  const theme = {};
+
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <AuthProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
