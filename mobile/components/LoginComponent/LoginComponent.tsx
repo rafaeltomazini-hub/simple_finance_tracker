@@ -3,6 +3,9 @@ import { Button, TextInput } from "react-native-paper";
 import { LoginStyles } from "./login.styles";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "@/helpers/schemas/loginSchema";
+import ErrorTextComponent from "../ErrorTextMessage/ErrorTextComponent";
 
 export const LoginComponent = () => {
   const [isSecureTextEntry, setIsSecureTextEntry] = useState(true);
@@ -10,9 +13,9 @@ export const LoginComponent = () => {
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     control,
-  } = useForm();
+  } = useForm({ resolver: zodResolver(loginSchema) });
 
   const onFormSubmit = (data: any) => {
     setIsSubmitting(true);
@@ -38,6 +41,10 @@ export const LoginComponent = () => {
         )}
       />
 
+      {errors.email && (
+        <ErrorTextComponent errorMessage={errors?.email?.message} />
+      )}
+
       <Controller
         control={control}
         name="password"
@@ -61,6 +68,10 @@ export const LoginComponent = () => {
         )}
       />
 
+      {errors.password && (
+        <ErrorTextComponent errorMessage={errors?.password?.message} />
+      )}
+
       <Button
         mode="outlined"
         onPress={handleSubmit(onFormSubmit)}
@@ -68,6 +79,7 @@ export const LoginComponent = () => {
         style={LoginStyles.loginButton}
         textColor="white"
         buttonColor="black"
+        disabled={!isValid || isSubmitting}
       >
         Acessar
       </Button>
