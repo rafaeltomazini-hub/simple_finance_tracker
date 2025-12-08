@@ -11,4 +11,7 @@ export const LoginStyles = StyleSheet.create({
   input: {
     marginBottom: 12,
   },
+  loginButton: {
+    marginTop: 10,
+  },
 });
