@@ -1,7 +1,7 @@
 import { View } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { Button, Checkbox, Text, TextInput } from "react-native-paper";
 import { LoginStyles } from "./login.styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/helpers/schemas/loginSchema";
@@ -21,6 +21,8 @@ export const LoginComponent = () => {
     setIsSubmitting(true);
     console.log(data);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <View style={LoginStyles.componentContainer}>
