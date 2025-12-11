@@ -1,15 +1,13 @@
 import express from "express";
+import router from "./routes/index";
+import errorHandler from "./middlewares/errorHandler.middleware";
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
+app.use(express.json());
 
-app.listen(port, (error) => {
-  if (error) {
-    console.error("Error starting the server:", error);
-  } else {
-    console.log(`Server is running at http://localhost:${port}`);
-  }
-});
+app.use("/api", router);
+
+app.use(errorHandler);
+
+export default app;
