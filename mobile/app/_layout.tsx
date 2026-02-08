@@ -2,8 +2,10 @@ import { AuthProvider } from "@/utils/authContext";
 import { app } from "@/utils/firebaseConfig";
 import { Stack } from "expo-router";
 import { PaperProvider } from "react-native-paper";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { useEffect } from "react";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 export default function RootLayout() {
   useEffect(() => {
@@ -14,12 +16,14 @@ export default function RootLayout() {
 
   return (
     <PaperProvider theme={theme}>
-      <AuthProvider>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="login/index" options={{ headerShown: false }} />
-        </Stack>
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthProvider>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="login/index" options={{ headerShown: false }} />
+          </Stack>
+        </AuthProvider>
+      </Provider>
     </PaperProvider>
   );
 }
